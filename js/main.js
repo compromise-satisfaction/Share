@@ -52,8 +52,9 @@ function Load(width,height){
       scene.addChild(Text);
       var Image = 0;
       scene.on("touchstart",function(){
+        Text.text = "画像表示 " + ImageDATAS[Image].url;
         Image++;
-        Text.text = "画像表示 " + Image;
+        if(Image==ImageDATAS.length) Image = 0;
       })
       return scene;
     };
