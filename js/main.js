@@ -1,7 +1,5 @@
 enchant()
 
-var URL = "image/Start.png";
-
 fetch(
   "https://script.google.com/macros/s/AKfycbzcY3aEn2ovKGtc9HA87smGV34KDo52qHVGTq395_9iqVylKPSg/exec",
 )
@@ -13,35 +11,24 @@ fetch(
     URL[i] = ImageDATAS[i].url
   }
   console.log(ImageDATAS);
+  Load(a[0],a[1]);
 },);
 
-var ASSETS = URL;
+var a = [];
 
 function Load(width,height){
+  a = [width,height];
+  console.log(a);
+  console.log(URL);
+  ASSETS = URL;
   var game = new Core(width, height);
-
-  var loadScene = new Scene();
-  game.loadingScene = loadScene;
-
-  game.preload("image/Start.png");
-  loadScene.addEventListener('progress', function(e) {
-    var loadImg = new Sprite(320,320);
-    loadImg.image = game.assets["image/Start.png"];
-    loadScene.addChild(loadImg);
-  });
-  loadScene.addEventListener('load', function(e) {
-    var core = enchant.Core.instance;
-    core.removeScene(core.loadingScene);
-    core.dispatchEvent(e);
-  });
-
   game.preload(ASSETS);
   game.fps = 10;
   game.onload = function(){
     var StartScene = function(){
       var scene = new Scene();
       var Start = new Sprite(505,505);
-      Start.image = game.assets["image/Start.png"];
+      Start.image = game.assets[ImageDATAS[0].url];
       scene.addChild(Start);
       var Text = new Label();
       Text.font  = "60px monospace";
@@ -53,6 +40,7 @@ function Load(width,height){
       var Image = 0;
       scene.on("touchstart",function(){
         Text.text = "画像表示 " + ImageDATAS[Image].url;
+        Start.image = game.assets[ImageDATAS[Image].url];
         Image++;
         if(Image==ImageDATAS.length) Image = 0;
       })
