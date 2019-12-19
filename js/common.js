@@ -20,6 +20,8 @@ function resetScreen(gameWidth,gameHeight){
   //enchantjs-stageの画面サイズを計算
   var width = gameWidth * scale;
   var height = gameHeight * scale;
+  console.log(height);
+
 /*
   //enchantjs-stageの画面サイズを計算
   var width = window.innerWidth;
@@ -65,10 +67,30 @@ function resetScreen(gameWidth,gameHeight){
   return {"scale":scale,"left":left,"top":top};
 }
 //初期設定
+
 $(function(){
+
+  new Vue({
+    el: '#app',
+    mounted () {
+      fetch(
+        "https://script.google.com/macros/s/AKfycbyfEnjDE8FhsxIo97tN5hsvYF_nSW47gwYia54D0-JPgyWti0K4/exec",
+      )
+        .then(res => res.json())
+        .then(result => {
+          var game = enchant.Core.instance;
+          game.scene_datas = result;
+        },);
+    }
+  })
+
   //ゲーム内の画面サイズ
-  var gameWidth = 505;
-  var gameHeight = 897;
+  var gameWidth = 1072;
+  var gameWidth = 1072/4;
+  var gameWidth = 405;
+  var gameHeight = 1560;
+  var gameHeight = 1560/4;
+  var gameHeight = 600;
   //回転時の処理
   var orientationChange = function(){
     //画面サイズ設定
@@ -91,7 +113,7 @@ $(function(){
   //余白部分をドラッグすることによるスクロールを無効にする
   //$("#base").on("touchstart",function(event){event.preventDefault();});
   //ゲームを実行する
-  Load(gameWidth,gameHeight);
+  Images(gameWidth,gameHeight);
   //初回時のスクリーン設定
   orientationChange();
 });
