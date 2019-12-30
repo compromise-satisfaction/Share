@@ -1,8 +1,13 @@
 enchant()
 
+var GAS = [
+  "https://script.google.com/macros/s/AKfycbydKeSrgciGcfdx1HbW5TXagCujRHYARr-pIrw2BzwsRq5H-U0/exec",//画像
+  "https://script.google.com/macros/s/AKfycbyfEnjDE8FhsxIo97tN5hsvYF_nSW47gwYia54D0-JPgyWti0K4/exec"//シーン
+];
+
 function Images(width,height){
   fetch(
-    "https://script.google.com/macros/s/AKfycbydKeSrgciGcfdx1HbW5TXagCujRHYARr-pIrw2BzwsRq5H-U0/exec",//画像GAS
+    GAS[0],
   )
   .then(res => res.json())
   .then(result => {
@@ -19,9 +24,7 @@ function Images(width,height){
 }
 
 function vue(width,height){
-      fetch(
-        "https://script.google.com/macros/s/AKfycbyfEnjDE8FhsxIo97tN5hsvYF_nSW47gwYia54D0-JPgyWti0K4/exec",//シーンGAS
-      )
+      fetch(GAS[1],)
       .then(res => res.json())
       .then(result => {
         DATAS = result;
@@ -184,12 +187,26 @@ function Load(width,height,DATAS){
 
     function post(value){
       if(Flag[1]=="セーブしない") return;
-      fetch("https://script.google.com/macros/s/AKfycbyfEnjDE8FhsxIo97tN5hsvYF_nSW47gwYia54D0-JPgyWti0K4/exec",//セーブGAS
+      //*
+      fetch(GAS[1],
         {
           method: 'POST',
           body: value
         }
       )
+      return;
+      //*/
+      var form = document.createElement('form');
+      var request = document.createElement('input');
+      form.method = 'POST';
+      form.target="_blank";
+      form.action = GAS[1];
+      request.type = 'hidden'; //入力フォームが表示されないように
+      request.name = "value";
+      request.value = value;
+      form.appendChild(request);
+      document.body.appendChild(form);
+      form.submit();
       return;
     }
 
@@ -851,7 +868,7 @@ function Load(width,height,DATAS){
         Text[i] = new Texts("|>続きから");
       }
       Text[i] = new Texts("|>説明");
-      //Text[i] = new Texts("|>デバック用");
+      Text[i] = new Texts("|>デバック用");
 
       for (var i = 0; i < Text.length; i++){
         Text[i].addEventListener('touchstart',function(e){
