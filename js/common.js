@@ -70,20 +70,6 @@ function resetScreen(gameWidth,gameHeight){
 
 $(function(){
 
-  new Vue({
-    el: '#app',
-    mounted () {
-      fetch(
-        "https://script.google.com/macros/s/AKfycbyfEnjDE8FhsxIo97tN5hsvYF_nSW47gwYia54D0-JPgyWti0K4/exec",
-      )
-        .then(res => res.json())
-        .then(result => {
-          var game = enchant.Core.instance;
-          game.scene_datas = result;
-        },);
-    }
-  })
-
   //ゲーム内の画面サイズ
   var gameWidth = 1072;
   var gameWidth = 1072/4;
